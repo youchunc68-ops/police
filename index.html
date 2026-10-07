@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>165全民防騙網 - 模擬展示與中文解說版</title>
+    
+    <!-- 引入 Tailwind CSS 樣式框架 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 引入 FontAwesome 圖示庫 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- 引入 Google Fonts 繁體中文字型 -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind 自訂色系設定 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        govBlue: '#0c325c',     /* 政府機關標準深藍色 */
+                        govBlueDark: '#07203b', /* 更深的導覽/頁尾藍 */
+                        govLight: '#f4f7fa',    /* 背景柔和淺色 */
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* 全域字型設定 */
+        body { font-family: 'Noto Sans TC', sans-serif; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+
+    <!-- ========================================== -->
+    <!-- 區塊一：頂部即時防詐警示跑馬燈               -->
+    <!-- ========================================== -->
+    <div class="bg-amber-500 text-slate-900 text-xs md:text-sm py-2 px-4 font-medium flex items-center justify-center shadow-inner">
+        <i class="fa-solid fa-triangle-exclamation mr-2 animate-bounce"></i>
+        <span>【防詐宣導說明】近期「假投資、解除分期付款」詐騙手法猖獗，若接獲可疑來電或簡訊請立即撥打 165 反詐騙專線！</span>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 區塊二：頂部導覽列（Header）               -->
+    <!-- ========================================== -->
+    <header class="bg-govBlue text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- 左側機關 Logo 與 名稱 -->
+                <div class="flex items-center space-x-3">
+                    <div class="bg-white text-govBlue font-black text-2xl px-3 py-1.5 rounded shadow flex items-center justify-center tracking-wider">
+                        165
+                    </div>
+                    <div>
+                        <div class="font-bold text-lg sm:text-xl tracking-wide">內政部警政署 165 全民防騙網</div>
+                        <div class="text-xs text-slate-300">防詐查證與最新手法展示平台</div>
+                    </div>
+                </div>
+
+                <!-- 桌面版導覽選單 (大螢幕顯示) -->
+                <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
+                    <a href="#query" class="hover:text-amber-300 transition-colors py-2"><i class="fa-solid fa-magnifying-glass mr-1"></i> 防詐查證專區</a>
+                    <a href="#cases" class="hover:text-amber-300 transition-colors py-2"><i class="fa-solid fa-bullhorn mr-1"></i> 最新詐騙手法</a>
+                    <a href="#report" class="hover:text-amber-300 transition-colors py-2"><i class="fa-solid fa-file-shield mr-1"></i> 檢舉與報案指引</a>
+                    <a href="#guide" class="hover:text-amber-300 transition-colors py-2"><i class="fa-solid fa-circle-question mr-1"></i> 網站說明</a>
+                </nav>
+
+                <!-- 手機版選單漢堡按鈕 (小螢幕顯示) -->
+                <div class="md:hidden flex items-center">
+                    <button id="menuBtn" class="text-white focus:outline-none p-2 rounded-lg hover:bg-govBlueDark" aria-label="切換選單">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 手機版摺疊選單內容 -->
+        <div id="mobileMenu" class="hidden md:hidden bg-govBlueDark border-t border-blue-900 px-4 pt-2 pb-4 space-y-2">
+            <a href="#query" class="block py-2 px-3 rounded hover:bg-blue-800 text-sm">防詐查證專區</a>
+            <a href="#cases" class="block py-2 px-3 rounded hover:bg-blue-800 text-sm">最新詐騙手法</a>
+            <a href="#report" class="block py-2 px-3 rounded hover:bg-blue-800 text-sm">檢舉與報案指引</a>
+            <a href="#guide" class="block py-2 px-3 rounded hover:bg-blue-800 text-sm">網站說明</a>
+        </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- 區塊三：主要內容區 (Main)                  -->
+    <!-- ========================================== -->
+    <main class="flex-grow">
+        
+        <!-- 子區塊 3-1：主視覺 Banner 與 互動查詢模擬器 -->
+        <section class="bg-gradient-to-br from-govBlue to-blue-950 text-white py-12 px-4 shadow-lg">
+            <div class="max-w-4xl mx-auto text-center space-y-6">
+                <h1 class="text-3xl sm:text-4xl font-black tracking-tight">全民防騙、即時查證</h1>
+                <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto">
+                    本展示頁面模擬 165 全民防騙網之核心功能。您可於下方輸入可疑之電話或網址，測試系統模擬比對回報。
+                </p>
+
+                <!-- 互動式查詢卡片本體 -->
+                <div id="query" class="bg-white text-slate-800 p-6 sm:p-8 rounded-2xl shadow-2xl text-left">
+                    <!-- Tab 切換按鈕：電話查詢 vs 網址查詢 -->
+                    <div class="flex border-b border-slate-200 mb-6">
+                        <button type="button" class="tab-btn pb-3 px-4 font-bold text-govBlue border-b-2 border-govBlue text-sm sm:text-base transition-all" data-target="phoneTab">
+                            <i class="fa-solid fa-phone-volume mr-2"></i>詐騙電話/號碼查詢
+                        </button>
+                        <button type="button" class="tab-btn pb-3 px-4 font-medium text-slate-500 hover:text-govBlue text-sm sm:text-base transition-all" data-target="urlTab">
+                            <i class="fa-solid fa-globe mr-2"></i>可疑網址/粉專查詢
+                        </button>
+                    </div>
+
+                    <!-- 電話查詢輸入區 -->
+                    <div id="phoneTab" class="tab-content space-y-4">
+                        <label class="block text-sm font-medium text-slate-700">
+                            輸入電話號碼查詢 (提示：輸入包含 <code class="bg-slate-100 text-red-600 px-1 py-0.5 rounded">165</code> 或 <code class="bg-slate-100 text-red-600 px-1 py-0.5 rounded">0988</code> 可觸發高風險警示)
+                        </label>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <input type="text" id="phoneInput" placeholder="例如: 0988123456" class="flex-grow px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-govBlue focus:outline-none">
+                            <button onclick="simulateQuery('phone')" class="bg-govBlue hover:bg-blue-900 text-white font-medium px-6 py-3 rounded-xl transition-colors shadow-md">
+                                <i class="fa-solid fa-magnifying-glass mr-2"></i>查詢號碼
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 網址查詢輸入區 -->
+                    <div id="urlTab" class="tab-content hidden space-y-4">
+                        <label class="block text-sm font-medium text-slate-700">
+                            輸入網址或社群粉專 (提示：輸入包含 <code class="bg-slate-100 text-red-600 px-1 py-0.5 rounded">scam</code> 可觸發高風險警示)
+                        </label>
+                        <div class="flex flex-col sm:flex-row gap-3">
+                            <input type="text" id="urlInput" placeholder="例如: http://fake-scam-site.com" class="flex-grow px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-govBlue focus:outline-none">
+                            <button onclick="simulateQuery('url')" class="bg-govBlue hover:bg-blue-900 text-white font-medium px-6 py-3 rounded-xl transition-colors shadow-md">
+                                <i class="fa-solid fa-magnifying-glass mr-2"></i>查詢網址
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 查詢結果動態顯示區域 -->
+                    <div id="queryResult" class="hidden mt-6 p-4 rounded-xl border text-sm"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 子區塊 3-2：最新詐騙手法公告區 -->
+        <section id="cases" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+            <div class="flex justify-between items-end mb-8 border-b border-slate-200 pb-4">
+                <div>
+                    <span class="text-amber-600 font-bold text-sm tracking-widest uppercase">Hot Warnings</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-govBlueDark mt-1">最新詐騙手法曝光與解析</h2>
+                </div>
+                <span class="text-slate-500 text-xs sm:text-sm">定期更新防詐安全教育</span>
+            </div>
+
+            <!-- 卡片網格排版 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- 手法一：投資詐騙 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow flex flex-col">
+                    <div class="h-48 bg-slate-200 relative overflow-hidden">
+                        <img src="https://placehold.co/600x400/0c325c/ffffff?text=Investment+Scam" alt="投資詐騙示意圖" class="w-full h-full object-cover">
+                        <span class="absolute top-3 left-3 bg-red-600 text-white text-xs px-2.5 py-1 rounded-full font-bold">高風險警示</span>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="text-xs text-slate-400 mb-1"><i class="fa-regular fa-calendar mr-1"></i> 公告日期：2026-06-06</div>
+                            <h3 class="font-bold text-lg text-slate-900 line-clamp-2">假冒知名投顧老師辦理「飆股免費體驗營」，誘騙下載惡意App</h3>
+                            <p class="text-slate-600 text-sm mt-2 line-clamp-3">詐騙集團透過社交軟體廣告散布「穩賺不賠」訊息，引導民眾加入投資群組後，要求匯款至人頭帳戶...</p>
+                        </div>
+                        <button onclick="openModal('假冒投顧飆股詐騙解析', '【詳細說明】：詐騙集團常利用名人肖像設立假粉專，宣稱提供明牌或高報酬投資。當被害人初次嘗試獲利想領出本金時，會以「繳交保證金、手續費」等理由拒絕出金。官方呼籲：所有穩賺不賠、保證獲利的投資全都是詐騙！')" class="text-govBlue font-bold text-sm hover:underline text-left">
+                            查看詳細防範對策 &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 手法二：解除分期付款 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow flex flex-col">
+                    <div class="h-48 bg-slate-200 relative overflow-hidden">
+                        <img src="https://placehold.co/600x400/0c325c/ffffff?text=ATM+Scam" alt="ATM詐騙示意圖" class="w-full h-full object-cover">
+                        <span class="absolute top-3 left-3 bg-amber-500 text-slate-900 text-xs px-2.5 py-1 rounded-full font-bold">常見手法</span>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="text-xs text-slate-400 mb-1"><i class="fa-regular fa-calendar mr-1"></i> 公告日期：2026-06-04</div>
+                            <h3 class="font-bold text-lg text-slate-900 line-clamp-2">網購客服來電稱「設定錯誤變成批發商/連續扣款」，需至ATM解除</h3>
+                            <p class="text-slate-600 text-sm mt-2 line-clamp-3">歹徒竄改來電號碼，佯裝網購平台或銀行客服，謊稱訂單錯誤，要求被害人至鄰近ATM或網銀進行轉帳操作...</p>
+                        </div>
+                        <button onclick="openModal('解除分期付款詐騙解析', '【詳細說明】：ATM提款機或網路銀行絕對沒有「解除分期付款」、「身分驗證」或「更改設定」的功能。聽到對方要求操作ATM輸入任何數字、序號或轉帳，99%是詐騙，請立刻掛斷電話！')" class="text-govBlue font-bold text-sm hover:underline text-left">
+                            查看詳細防範對策 &rarr;
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 手法三：釣魚簡訊 -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md transition-shadow flex flex-col">
+                    <div class="h-48 bg-slate-200 relative overflow-hidden">
+                        <img src="https://placehold.co/600x400/0c325c/ffffff?text=Phishing+SMS" alt="釣魚簡訊示意圖" class="w-full h-full object-cover">
+                        <span class="absolute top-3 left-3 bg-amber-500 text-slate-900 text-xs px-2.5 py-1 rounded-full font-bold">詐騙簡訊</span>
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
+                        <div>
+                            <div class="text-xs text-slate-400 mb-1"><i class="fa-regular fa-calendar mr-1"></i> 公告日期：2026-05-30</div>
+                            <h3 class="font-bold text-lg text-slate-900 line-clamp-2">假冒「遠通電收 eTag、水電費、健保署」發送欠費繳納釣魚簡訊</h3>
+                            <p class="text-slate-600 text-sm mt-2 line-clamp-3">簡訊內附帶不明縮寫網址，點擊後會進入幾可亂真的假繳費頁面，填寫信用卡資料後即遭盜刷...</p>
+                        </div>
+                        <button onclick="openModal('釣魚簡訊詐騙解析', '【詳細說明】：政府機關或國營事業不會透過帶有不明短網址（如 .cc 或非官方網域）的簡訊要求民眾刷卡繳費。請切記不點擊、不填輸、不回傳原則。')" class="text-govBlue font-bold text-sm hover:underline text-left">
+                            查看詳細防範對策 &rarr;
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 子區塊 3-3：報案與檢舉指引區 -->
+        <section id="report" class="bg-blue-50 py-16 px-4 border-y border-blue-100">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <h2 class="text-2xl sm:text-3xl font-black text-govBlueDark">遭遇詐騙該如何處理？</h2>
+                    <p class="text-slate-600 text-sm sm:text-base mt-2">請保持冷靜，並透過以下官方正式管道尋求協助與通報。</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- 專線說明卡片 -->
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="w-14 h-14 bg-red-100 text-red-600 rounded-2xl flex items-center justify-center text-2xl font-bold">
+                                <i class="fa-solid fa-phone-alt"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900">165 反詐騙諮詢專線</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                提供 24 小時全年無休服務，受理民眾關於詐騙電話諮詢、疑義查證、以及通報攔阻可疑帳戶。
+                            </p>
+                            <div class="text-2xl font-black text-red-600 tracking-wider">
+                                直撥 165
+                            </div>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-500">
+                            境外地區請撥打：+886-2-23493165
+                        </div>
+                    </div>
+
+                    <!-- 網路報案卡片 -->
+                    <div id="guide" class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <div class="w-14 h-14 bg-blue-100 text-govBlue rounded-2xl flex items-center justify-center text-2xl font-bold">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900">網路報案與檢舉說明</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                若您已遭受實際財產損失，請備妥匯款單據、對話截圖等相關事證，前往鄰近警察分局偵查隊報案，或透過正式系統登錄。
+                            </p>
+                            <button onclick="alertBox('提示說明', '此為前端展示頁面。實際進行網路報案或案件查詢，請務必透過官方正式網址 (165.npa.gov.tw) 進行登入與操作。')" class="inline-block bg-govBlue hover:bg-blue-900 text-white font-medium px-6 py-3 rounded-xl transition-colors text-sm shadow">
+                                <i class="fa-solid fa-arrow-up-right-from-square mr-2"></i>了解正式報案流程
+                            </button>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-100 text-xs text-slate-500">
+                            內政部警政署刑事警察局 關心您
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ========================================== -->
+    <!-- 區塊四：頁尾資訊與版權宣告 (Footer)          -->
+    <!-- ========================================== -->
+    <footer class="bg-govBlueDark text-slate-400 py-10 px-4 text-xs sm:text-sm">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 border-b border-slate-800 pb-8">
+            <div>
+                <div class="text-white font-bold text-base mb-3 flex items-center">
+                    <span class="bg-white text-govBlue font-black px-2 py-0.5 rounded text-xs mr-2">165</span> 內政部警政署
+                </div>
+                <p class="leading-relaxed">本展示網頁僅供前端視覺排版與互動展示使用，內容參考並致敬「內政部警政署 165 全民防騙網」。</p>
+            </div>
+            <div>
+                <div class="text-white font-bold text-base mb-3">官方相關連結說明</div>
+                <ul class="space-y-2">
+                    <li><a href="https://www.npa.gov.tw" target="_blank" rel="noopener" class="hover:text-white transition-colors">內政部警政署全球資訊網</a></li>
+                    <li><a href="https://165.npa.gov.tw" target="_blank" rel="noopener" class="hover:text-white transition-colors">165 全民防騙網正式網站</a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="text-white font-bold text-base mb-3">聯絡與服務資訊</div>
+                <p class="leading-relaxed">地址：110 臺北市信義區忠孝東路四段 553 號</p>
+                <p class="mt-1">24小時反詐諮詢專線：165</p>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto text-center text-slate-500">
+            &copy; 2026 內政部警政署 165 全民防騙網 - 前端介面模擬展示範例
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- 互動對話框元件 (Modal 與 自訂提示窗)         -->
+    <!-- ========================================== -->
+
+    <!-- 手勢詳細說明彈跳視窗 -->
+    <div id="infoModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-700 text-xl font-bold p-1" aria-label="關閉視窗">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 id="modalTitle" class="text-xl font-black text-govBlueDark mb-3">詳細說明標題</h3>
+            <p id="modalDesc" class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">詳細說明內容文字...</p>
+            <div class="text-right">
+                <button onclick="closeModal()" class="bg-govBlue text-white px-5 py-2.5 rounded-xl text-sm font-medium hover:bg-blue-900 transition-colors">
+                    我知道了
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 自訂訊息提示窗 (取代傳統 alert) -->
+    <div id="customAlert" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl text-center">
+            <div id="alertTitle" class="text-lg font-bold text-slate-900 mb-2">提示標題</div>
+            <div id="alertMsg" class="text-slate-600 text-sm mb-6">提示內容文字...</div>
+            <button onclick="closeAlert()" class="w-full bg-govBlue text-white py-2.5 rounded-xl font-medium hover:bg-blue-900 transition-colors">
+                確定
+            </button>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- JavaScript 互動邏輯與中文註解說明              -->
+    <!-- ========================================== -->
+    <script>
+        /* 1. 手機版漢堡選單互動控制 */
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        menuBtn.addEventListener('click', () => {
+            // 切換隱藏與顯示狀態
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        /* 2. 查詢區 Tab 頁籤切換控制 */
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetId = btn.getAttribute('data-target');
+                
+                // 重設所有 Tab 按鈕樣式
+                tabBtns.forEach(b => {
+                    b.classList.remove('border-b-2', 'border-govBlue', 'font-bold', 'text-govBlue');
+                    b.classList.add('font-medium', 'text-slate-500');
+                });
+                
+                // 設定當前點擊的 Tab 按鈕為高亮狀態
+                btn.classList.add('border-b-2', 'border-govBlue', 'font-bold', 'text-govBlue');
+                btn.classList.remove('font-medium', 'text-slate-500');
+
+                // 隱藏所有內容區塊，並顯示目標區塊
+                tabContents.forEach(c => c.classList.add('hidden'));
+                document.getElementById(targetId).classList.remove('hidden');
+                
+                // 切換分頁時自動清空先前的查詢結果
+                document.getElementById('queryResult').classList.add('hidden');
+            });
+        });
+
+        /* 3. 模擬查詢功能邏輯 */
+        function simulateQuery(type) {
+            // 根據查詢類型取得輸入框的值並去除左右空白
+            const inputVal = type === 'phone' ? document.getElementById('phoneInput').value.trim() : document.getElementById('urlInput').value.trim();
+            const resultBox = document.getElementById('queryResult');
+
+            // 若未輸入內容則跳出提示
+            if (!inputVal) {
+                alertBox('欄位空白提醒', type === 'phone' ? '請先輸入欲查詢的電話號碼！' : '請先輸入欲查詢的網址或粉專名稱！');
+                return;
+            }
+
+            // 顯示結果容器
+            resultBox.classList.remove('hidden');
+            
+            // 模擬比對：若包含特定關鍵字則判定為高風險，否則顯示安全
+            if (inputVal.includes('165') || inputVal.includes('0988') || inputVal.toLowerCase().includes('scam')) {
+                resultBox.className = "mt-6 p-4 rounded-xl border border-red-200 bg-red-50 text-red-900 text-sm";
+                resultBox.innerHTML = `
+                    <div class="flex items-center font-bold text-base mb-1 text-red-700">
+                        <i class="fa-solid fa-triangle-exclamation mr-2"></i>【模擬比對結果：高風險警示】
+                    </div>
+                    <p class="mt-1">系統模擬紀錄顯示：目標「<strong>${inputVal}</strong>」近期已被多位民眾通報涉及詐騙（如假投資或解除分期付款）。請提高警覺，切勿聽信對方指示轉帳匯款！</p>
+                `;
+            } else {
+                resultBox.className = "mt-6 p-4 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-900 text-sm";
+                resultBox.innerHTML = `
+                    <div class="flex items-center font-bold text-base mb-1 text-emerald-700">
+                        <i class="fa-solid fa-circle-check mr-2"></i>【模擬比對結果：查無高風險通報】
+                    </div>
+                    <p class="mt-1">截至目前為止，模擬資料庫中尚未接獲針對「<strong>${inputVal}</strong>」之明確詐騙通報。但網路交友與交易仍有風險，若有疑慮請撥打 165 專線確認。</p>
+                `;
+            }
+        }
+
+        /* 4. 手勢詳細內容 Modal 彈跳視窗控制 */
+        function openModal(title, desc) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDesc').innerText = desc;
+            const modal = document.getElementById('infoModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
